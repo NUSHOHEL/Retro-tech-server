@@ -8,12 +8,14 @@ const postRoute = require("./routes/posts");
 const categoryRoute = require("./routes/categories");
 const multer = require("multer");
 const path = require("path");
+var cors = require('cors')
 
-
+const port = 5000 ;
 
 dotenv.config();
 
 app.use(express.json());
+app.use(cors())
 app.use("/images", express.static(path.join(__dirname, "/images")));
 const uri =`mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@cluster0.y9hw8.mongodb.net/${process.env.COLLECTION}?retryWrites=true&w=majority`;
 mongoose
@@ -45,4 +47,4 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
 
-app.listen(process.env.PORT || "5000");
+app.listen(process.env.PORT || port);
