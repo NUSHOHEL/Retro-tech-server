@@ -10,12 +10,14 @@ const multer = require("multer");
 const path = require("path");
 
 
+
 dotenv.config();
+
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")));
-
+const uri =`mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@cluster0.y9hw8.mongodb.net/${process.env.Collection}?retryWrites=true&w=majority`;
 mongoose
-  .connect(process.env.MONGO_URL, {
+  .connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
